@@ -15,10 +15,8 @@
 
     <ItemGroup>
       <Folder Include="Learning\Controllers" />
-      <Folder Include="Learning\Domain\Repositories" />
       <Folder Include="Learning\Domain\Services\Communication" />
       <Folder Include="Learning\Mapping" />
-      <Folder Include="Learning\Persistence\Repositories" />
       <Folder Include="Learning\Services" />
       <Folder Include="Shared\Domain\Services\Communication" />
       <Folder Include="Shared\Extensions" />
