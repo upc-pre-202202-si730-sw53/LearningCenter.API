@@ -1,6 +1,8 @@
 using System.Net.Mime;
+using AutoMapper;
 using LearningCenter.API.Learning.Domain.Models;
 using LearningCenter.API.Learning.Domain.Services;
+using LearningCenter.API.Learning.Resources;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearningCenter.API.Learning.Controllers;
@@ -11,18 +13,22 @@ namespace LearningCenter.API.Learning.Controllers;
 public class CategoriesController : ControllerBase
 {
     private readonly ICategoryService _categoryService;
+    private readonly IMapper _mapper;
 
-    public CategoriesController(ICategoryService categoryService)
+    public CategoriesController(ICategoryService categoryService, IMapper mapper)
     {
         _categoryService = categoryService;
+        _mapper = mapper;
     }
 
     [HttpGet]
-    public async Task<IEnumerable<Category>> GetAllAsync()
+    public async Task<IEnumerable<CategoryResource>> GetAllAsync()
     {
         var categories = await _categoryService.ListAsync();
-        return categories;
+        var resources = _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryResource>>(categories);
+        return resources;
     }
+    
     
     
 }
