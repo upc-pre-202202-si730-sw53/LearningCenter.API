@@ -1,4 +1,5 @@
 using LearningCenter.API.Learning.Domain.Models;
+using LearningCenter.API.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace LearningCenter.API.Shared.Persistence.Contexts;
@@ -24,6 +25,8 @@ public class AppDbContext : DbContext
             .IsRequired().ValueGeneratedOnAdd();
         builder.Entity<Category>().Property(p => p.Name)
             .IsRequired().HasMaxLength(30);
+        
+        builder.UseSnakeCaseNamingConvention();
 
     }
 }
