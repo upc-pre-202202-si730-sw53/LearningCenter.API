@@ -9,5 +9,5 @@ public interface ITutorialService
     Task<IEnumerable<Tutorial>> ListByCategoryIdAsync(int categoryId);
     Task<TutorialResponse> SaveAsync(Tutorial tutorial);
     Task<TutorialResponse> UpdateAsync(int tutorialId, Tutorial tutorial);
-    Task<TutorialResponse> DeleteAsync(int tutorial);
+    Task<TutorialResponse> DeleteAsync(int tutorialId);
 }
