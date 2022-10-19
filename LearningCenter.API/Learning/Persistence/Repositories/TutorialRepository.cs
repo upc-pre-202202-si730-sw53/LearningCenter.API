@@ -24,28 +24,35 @@ public class TutorialRepository : BaseRepository, ITutorialRepository
         await _context.Tutorials.AddAsync(tutorial);
     }
 
-    public Task<Tutorial> FindByIdAsync(int tutorialId)
+    public async Task<Tutorial> FindByIdAsync(int tutorialId)
     {
-        throw new NotImplementedException();
+        return await _context.Tutorials
+            .Include(p => p.Category)
+            .FirstOrDefaultAsync(p => p.Id == tutorialId);
     }
 
-    public Task<Tutorial> FindByTitleAsync(string title)
+    public async Task<Tutorial> FindByTitleAsync(string title)
     {
-        throw new NotImplementedException();
+        return await _context.Tutorials
+            .Include(p => p.Category)
+            .FirstOrDefaultAsync(p => p.Title == title);
     }
 
-    public Task<IEnumerable<Tutorial>> FindByCategoryIdAsync(int categoryId)
+    public async Task<IEnumerable<Tutorial>> FindByCategoryIdAsync(int categoryId)
     {
-        throw new NotImplementedException();
+        return await _context.Tutorials
+            .Where(p => p.CategoryId == categoryId)
+            .Include(p => p.Category)
+            .ToListAsync();
     }
 
     public void Update(Tutorial tutorial)
     {
-        throw new NotImplementedException();
+        _context.Tutorials.Update(tutorial);
     }
 
     public void Remove(Tutorial tutorial)
     {
-        throw new NotImplementedException();
+        _context.Tutorials.Remove(tutorial);
     }
 }
