@@ -16,7 +16,7 @@ public class LearningAnalyticsController : ControllerBase
         _learningAnalyticsService = learningAnalyticsService;
     }
 
-    [HttpGet("/tutorials/total")]
+    [HttpGet("tutorials/total")]
     public int GetTutorialsCount()
     {
         return _learningAnalyticsService.TotalLearningTutorialsCount();
