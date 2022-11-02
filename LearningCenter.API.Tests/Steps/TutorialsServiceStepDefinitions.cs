@@ -73,7 +73,7 @@ public class TutorialsServiceStepDefinitions : WebApplicationFactory<Program>
     [Then(@"An Error Message is returned with value ""(.*)""")]
     public void ThenAnErrorMessageIsReturnedWithValue(string expectedMessage)
     {
-        // TODO: Implement Step
-        ScenarioContext.StepIsPending();
+        var message = Response.Result.Content.ReadAsStringAsync().Result;
+        Assert.Equal(expectedMessage, message);
     }
 }
