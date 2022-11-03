@@ -3,7 +3,6 @@ using System.Net.Mime;
 using System.Text;
 using LearningCenter.API.Learning.Resources;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Newtonsoft.Json;
 using SpecFlow.Internal.Json;
 using TechTalk.SpecFlow.Assist;
@@ -66,7 +65,16 @@ public class TutorialsServiceStepDefinitions : WebApplicationFactory<Program>
         var content = new StringContent(resource.ToJson(), Encoding.UTF8, MediaTypeNames.Application.Json);
         Response = Client.PostAsync(BaseUri, content);
         var responseData = await Response.Result.Content.ReadAsStringAsync();
-        var responseResource = JsonConvert.DeserializeObject<TutorialResource>(responseData);
+        var responseResource = new TutorialResource();
+        try
+        {
+            responseResource = JsonConvert.DeserializeObject<TutorialResource>(responseData);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+        
         Assert.Equal(resource.Title, responseResource.Title);
     }
 
