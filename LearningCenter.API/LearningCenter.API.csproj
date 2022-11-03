@@ -18,7 +18,6 @@
 
     <ItemGroup>
       <Folder Include="Security\Authorization" />
-      <Folder Include="Security\Domain\Repositories" />
       <Folder Include="Security\Domain\Services" />
       <Folder Include="Security\Exceptions" />
       <Folder Include="Security\Interfaces\Rest\Controllers" />
