@@ -66,6 +66,7 @@ public class UserService : IUserService
         
         // Map model to new user object
         var user = _mapper.Map<User>(model);
+        Console.WriteLine($"User id: {user.Id}");
         
         // Hash password
         user.PasswordHash = BCryptNet.HashPassword(model.Password);

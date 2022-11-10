@@ -4,6 +4,7 @@ using LearningCenter.API.Learning.Persistence.Repositories;
 using LearningCenter.API.Learning.Services;
 using LearningCenter.API.Security.Authorization.Handlers.Implementations;
 using LearningCenter.API.Security.Authorization.Handlers.Interfaces;
+using LearningCenter.API.Security.Authorization.Middleware;
 using LearningCenter.API.Security.Authorization.Settings;
 using LearningCenter.API.Security.Domain.Repositories;
 using LearningCenter.API.Security.Domain.Services;
@@ -13,7 +14,6 @@ using LearningCenter.API.Shared.Domain.Repositories;
 using LearningCenter.API.Shared.Persistence.Contexts;
 using LearningCenter.API.Shared.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -114,6 +114,20 @@ if (app.Environment.IsDevelopment())
         options.RoutePrefix = "swagger";
     });
 }
+
+
+// CORS
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+
+// Configure Error Handler Middleware
+app.UseMiddleware<ErrorHandlerMiddleware>();
+
+// Configure JWT Handling
+app.UseMiddleware<JwtMiddleware>();
+
 
 app.UseHttpsRedirection();
 
