@@ -2,6 +2,13 @@ using LearningCenter.API.Learning.Domain.Repositories;
 using LearningCenter.API.Learning.Domain.Services;
 using LearningCenter.API.Learning.Persistence.Repositories;
 using LearningCenter.API.Learning.Services;
+using LearningCenter.API.Security.Authorization.Handlers.Implementations;
+using LearningCenter.API.Security.Authorization.Handlers.Interfaces;
+using LearningCenter.API.Security.Authorization.Settings;
+using LearningCenter.API.Security.Domain.Repositories;
+using LearningCenter.API.Security.Domain.Services;
+using LearningCenter.API.Security.Persistence;
+using LearningCenter.API.Security.Services;
 using LearningCenter.API.Shared.Domain.Repositories;
 using LearningCenter.API.Shared.Persistence.Contexts;
 using LearningCenter.API.Shared.Persistence.Repositories;
@@ -67,11 +74,25 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ITutorialRepository, TutorialRepository>();
 builder.Services.AddScoped<ITutorialService, TutorialService>();
 
+// Security Bounded Context Injection Configuration
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IJwtHandler, JwtHandler>();
+
 // AutoMapper Configuration
 
 builder.Services.AddAutoMapper(
     typeof(LearningCenter.API.Learning.Mapping.ModelToResourceProfile),
-    typeof(LearningCenter.API.Learning.Mapping.ResourceToModelProfile));
+    typeof(LearningCenter.API.Learning.Mapping.ResourceToModelProfile),
+    typeof(LearningCenter.API.Security.Mapping.ModelToResourceProfile),
+    typeof(LearningCenter.API.Security.Mapping.ResourceToModelProfile));
+
+// AppSettings Configuration
+
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+
+// Application built
 
 var app = builder.Build();
 
